@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* dynamic RAL accent — repainted by the coating station */
+  --accent: 196 22 28;
+  --accent-hi: 255 92 86;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis owns scrolling */
+}
+
+body {
+  @apply bg-night text-bone font-body antialiased;
+  font-size: 15.5px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgb(var(--accent));
+  color: #0b0c0e;
+}
+
+:focus-visible {
+  outline: 1.5px solid rgb(var(--accent-hi));
+  outline-offset: 3px;
+}
+
+/* ---------- type helpers ---------- */
+.tag {
+  @apply font-label uppercase;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: theme(colors.mute);
+}
+.tag b { color: rgb(var(--accent-hi)); font-weight: 500; }
+
+.display {
+  @apply font-disp uppercase;
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+}
+
+/* ---------- atmosphere ---------- */
+.grain {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 55;
+  background: radial-gradient(ellipse 120% 90% at 50% 45%, transparent 55%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+/* ---------- instrument button ---------- */
+.btn {
+  @apply font-label uppercase inline-flex items-center gap-3 relative;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  padding: 17px 28px;
+  border: 1px solid theme(colors.line);
+  color: theme(colors.bone);
+  transition: border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn:hover { border-color: rgb(var(--accent)); color: rgb(var(--accent-hi)); }
+.btn--solid {
+  background: rgb(var(--accent));
+  border-color: rgb(var(--accent));
+  color: #0b0c0e;
+}
+.btn--solid:hover { background: rgb(var(--accent-hi)); border-color: rgb(var(--accent-hi)); color: #0b0c0e; }
+
+/* ---------- annotation labels (projected from 3D) ---------- */
+.anno {
+  position: absolute;
+  transform: translate(14px, -50%);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+}
+.anno::before {
+  content: "";
+  position: absolute;
+  left: -11px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  background: rgb(var(--accent-hi));
+  transform: rotate(45deg);
+}
+.anno .a-name {
+  @apply font-label uppercase;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: theme(colors.bone);
+}
+.anno .a-spec {
+  @apply font-label;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: theme(colors.ash);
+}
+.anno--left { transform: translate(calc(-100% - 14px), -50%); text-align: right; }
+.anno--left::before { left: auto; right: -11px; }
+
+/* ---------- range slider (arbor) ---------- */
+input[type="range"].arbor {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 24px;
+  background: transparent;
+  width: 100%;
+}
+input[type="range"].arbor::-webkit-slider-runnable-track { height: 1px; background: theme(colors.line); }
+input[type="range"].arbor::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 20px;
+  margin-top: -9.5px;
+  background: #0b0c0e;
+  border: 1px solid rgb(var(--accent-hi));
+}
+input[type="range"].arbor::-moz-range-track { height: 1px; background: theme(colors.line); }
+input[type="range"].arbor::-moz-range-thumb { width: 12px; height: 20px; background: #0b0c0e; border: 1px solid rgb(var(--accent-hi)); border-radius: 0; }
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
