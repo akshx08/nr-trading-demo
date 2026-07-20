@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N.R. Trading Co. — Flat Steel, Measured | HR · CR · GP · GL · PPGI · PPGL</title>
+<meta name="description" content="N.R. Trading Co. sources flat steel on direct mill allocation, processes it to tolerance — slitting from 25 mm, cut-to-length to 6,000 mm — and delivers pan-India. HR, CR, GP, GL, PPGI, PPGL and colour coated steel since 2005.">
+<meta name="theme-color" id="metaTheme" content="#0A0B0E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ================= TOKENS ================= */
+:root{
+  --bg:#0A0B0E; --bg2:#0D0F13; --panel:#10131A; --panel2:#131722;
+  --line:rgba(201,207,218,.16); --line2:rgba(201,207,218,.07);
+  --plat:#C9CFDA; --ink:#EAECF1; --dim:#98A1B0; --faint:#5F6675;
+  --hot:#FF8A3D; --hot2:#FFB566; --hot-dim:rgba(255,138,61,.13);
+  --ease:cubic-bezier(.22,1,.36,1); --ease2:cubic-bezier(.4,0,.2,1);
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --disp:'Space Grotesk',sans-serif; --body:'Inter',sans-serif;
+  --pad:clamp(20px,5vw,72px); --max:1440px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--bg); color:var(--ink); font-family:var(--body);
+  font-size:15.5px; line-height:1.7; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--hot); color:#0A0B0E}
+a{color:inherit; text-decoration:none}
+:focus-visible{outline:1.5px solid var(--hot); outline-offset:3px}
+button{font:inherit; color:inherit; background:none; border:none; cursor:pointer}
+img,svg,canvas{max-width:100%; display:block}
+
+/* ================= UTILITIES ================= */
+.wrap{max-width:var(--max); margin:0 auto; padding-left:var(--pad); padding-right:var(--pad)}
+.mono{font-family:var(--mono)}
+.tag{
+  font-family:var(--mono); font-size:10.5px; font-weight:500;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--faint);
+}
+.tag b{color:var(--hot); font-weight:500}
+.rv{opacity:0; transform:translateY(26px)}
+.no-js .rv{opacity:1; transform:none}
+.hairline{border:none; border-top:1px solid var(--line2)}
+
+/* film grain — static, subtle */
+.grain{
+  position:fixed; inset:-50%; width:200%; height:200%; pointer-events:none; z-index:97;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.032;
+}
+
+/* blueprint substrate */
+.blueprint{
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(var(--line2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line2) 1px, transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 30%, rgba(0,0,0,.5), transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 30%, rgba(0,0,0,.5), transparent 75%);
+}
+
+/* ================= CURSOR (fine pointers) ================= */
+.cur-on, .cur-on a, .cur-on button, .cur-on input, .cur-on select,
+.cur-on textarea, .cur-on label, .cur-on [role="row"]{cursor:none}
+#curDot,#curRing{position:fixed; top:0; left:0; pointer-events:none; z-index:9999}
+#curDot{width:4px; height:4px; background:var(--plat); border-radius:50%; margin:-2px 0 0 -2px}
+#curRing{
+  width:30px; height:30px; margin:-15px 0 0 -15px; border-radius:50%;
+  border:1px solid rgba(201,207,218,.5);
+  transition:width .28s var(--ease), height .28s var(--ease), margin .28s var(--ease), border-color .28s var(--ease);
+}
+#curRing::before,#curRing::after{
+  content:""; position:absolute; background:rgba(201,207,218,.55);
+}
+#curRing::before{left:50%; top:-5px; width:1px; height:4px; transform:translateX(-.5px); box-shadow:0 34px 0 rgba(201,207,218,.55)}
+#curRing::after{top:50%; left:-5px; height:1px; width:4px; transform:translateY(-.5px); box-shadow:34px 0 0 rgba(201,207,218,.55)}
+.cur-hi #curRing{width:46px; height:46px; margin:-23px 0 0 -23px; border-color:var(--hot)}
+.cur-hi #curDot{background:var(--hot)}
+
+/* ================= INTRO / CALIBRATION ================= */
+#intro{
+  position:fixed; inset:0; z-index:200; background:var(--bg);
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .9s var(--ease), opacity .9s var(--ease);
+}
+#intro.done{transform:translateY(-100%); opacity:0}
+#intro .in-box{width:min(420px,80vw)}
+#intro .in-row{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px}
+#intro .in-status{color:var(--dim)}
+#intro .in-num{font-family:var(--mono); font-size:11px; color:var(--hot); letter-spacing:.12em}
+#intro .in-bar{height:1px; background:var(--line); position:relative; overflow:hidden}
+#intro .in-bar i{position:absolute; inset:0; background:var(--hot); transform-origin:0 50%; transform:scaleX(0)}
+.no-js #intro{display:none}
+
+/* ================= NAV ================= */
+#nav{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  transition:background .5s var(--ease2), border-color .5s var(--ease2);
+  border-bottom:1px solid transparent;
+}
+#nav.solid{background:rgba(10,11,14,.97); border-color:var(--line2)}
+#nav .n-in{
+  max-width:var(--max); margin:0 auto; padding:0 var(--pad);
+  display:flex; align-items:center; justify-content:space-between; height:64px;
+}
+#nav .n-logo{display:flex; align-items:baseline; gap:10px}
+#nav .n-logo .n-mark{font-family:var(--disp); font-weight:500; font-size:19px; letter-spacing:.01em}
+#nav .n-logo .n-sub{font-family:var(--mono); font-size:9.5px; letter-spacing:.22em; color:var(--faint)}
+#nav .n-links{display:flex; gap:30px; align-items:center}
+#nav .n-links a{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--dim); transition:color .3s var(--ease2); position:relative;
+}
+#nav .n-links a:hover{color:var(--ink)}
+#nav .n-links a::after{
+  content:""; position:absolute; left:0; bottom:-4px; height:1px; width:100%;
+  background:var(--hot); transform:scaleX(0); transform-origin:0 50%;
+  transition:transform .4s var(--ease);
+}
+#nav .n-links a:hover::after{transform:scaleX(1)}
+#nav .n-cta{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.14em;
+  color:var(--hot); border:1px solid rgba(255,138,61,.4); padding:9px 16px;
+  transition:background .3s var(--ease2), color .3s var(--ease2);
+}
+#nav .n-cta:hover{background:var(--hot); color:#0A0B0E}
+@media(max-width:900px){ #nav .n-links{display:none} }
+@media(max-width:560px){
+  #nav .n-logo .n-sub{display:none}
+  #nav .n-cta{padding:8px 12px; font-size:10px; letter-spacing:.1em}
+}
+
+/* ================= BUTTONS (instrument) ================= */
+.btn{
+  display:inline-flex; align-items:center; gap:12px; position:relative;
+  font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase;
+  padding:16px 26px; border:1px solid var(--line); color:var(--ink);
+  transition:border-color .35s var(--ease2), color .35s var(--ease2), background .35s var(--ease2);
+}
+.btn::before,.btn::after{
+  content:""; position:absolute; width:7px; height:7px; border-color:var(--plat); border-style:solid;
+  opacity:.55; transition:border-color .35s var(--ease2), opacity .35s var(--ease2);
+}
+.btn::before{top:-1px; left:-1px; border-width:1px 0 0 1px}
+.btn::after{bottom:-1px; right:-1px; border-width:0 1px 1px 0}
+.btn:hover{border-color:var(--hot); color:var(--hot)}
+.btn:hover::before,.btn:hover::after{border-color:var(--hot); opacity:1}
+.btn .b-tick{width:14px; height:1px; background:currentColor; opacity:.7}
+.btn--hot{background:var(--hot); border-color:var(--hot); color:#0A0B0E}
+.btn--hot:hover{background:var(--hot2); border-color:var(--hot2); color:#0A0B0E}
+.btn--hot::before,.btn--hot::after{border-color:rgba(10,11,14,.5)}
+.btn--hot:hover::before,.btn--hot:hover::after{border-color:rgba(10,11,14,.5)}
+
+/* ================= STATION HEADERS ================= */
+.station{position:relative; z-index:1}
+.st-head{display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:clamp(34px,5vw,64px)}
+.st-head .st-l .tag{display:block; margin-bottom:18px}
+.st-head h2{
+  font-family:var(--disp); font-weight:300; letter-spacing:-.02em; line-height:1.02;
+  font-size:clamp(2.1rem,4.6vw,4rem); color:var(--ink);
+}
+.st-head h2 em{font-style:normal; color:var(--faint)}
+.st-head .st-r{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; color:var(--faint); text-align:right; white-space:nowrap; padding-bottom:8px}
+@media(max-width:768px){
+  .st-head{flex-direction:column; align-items:flex-start; gap:16px}
+  .st-head .st-r{white-space:normal; text-align:left; padding-bottom:0}
+}
+.st-rule{height:1px; background:var(--line2); margin-bottom:clamp(34px,5vw,60px); position:relative}
+.st-rule i{position:absolute; left:0; top:0; height:1px; width:56px; background:var(--hot)}
+
+/* ================= HERO ACT ================= */
+#actHero{height:300vh; position:relative}
+#actHero .stage{position:sticky; top:0; height:100vh; height:100svh; overflow:hidden}
+#heroCanvas{position:absolute; inset:0; width:100%; height:100%}
+.hero-copy{
+  position:absolute; z-index:5; left:var(--pad); top:50%; transform:translateY(-50%);
+  max-width:620px; will-change:opacity,transform;
+}
+.hero-copy .tag{display:block; margin-bottom:26px}
+.hero-copy h1{font-weight:400}
+.hero-copy .h-eyebrow{
+  display:block; font-family:var(--mono); font-size:11px; font-weight:500;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--dim); margin-bottom:22px;
+}
+.hero-copy .h-line{
+  display:block; font-family:var(--disp); font-weight:300; letter-spacing:-.03em;
+  font-size:clamp(2.6rem,6.2vw,5.4rem); line-height:1.0; color:var(--ink);
+}
+.hero-copy .h-line b{font-weight:300; color:var(--hot)}
+.hero-copy p{margin-top:26px; color:var(--dim); max-width:480px; font-size:15px}
+.hero-copy .h-ctas{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap}
+.hero-callout{
+  position:absolute; z-index:4; font-family:var(--mono); font-size:10.5px; letter-spacing:.1em;
+  color:var(--plat); white-space:nowrap; will-change:opacity;
+}
+.hero-callout .hc-k{color:var(--faint); letter-spacing:.16em; font-size:9.5px; display:block; margin-bottom:2px}
+.hero-callout .hc-v{font-size:12px}
+.hero-callout .hc-v b{color:var(--hot); font-weight:500}
+.hero-scroll{
+  position:absolute; z-index:5; bottom:28px; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.26em; color:var(--faint); text-transform:uppercase;
+}
+.hero-scroll i{width:1px; height:44px; background:linear-gradient(var(--hot), transparent); display:block}
+.hero-endcap{
+  position:absolute; z-index:5; left:var(--pad); bottom:80px; max-width:520px; opacity:0; will-change:opacity,transform;
+}
+.hero-endcap .tag{display:block; margin-bottom:14px}
+.hero-endcap .e-line{
+  font-family:var(--disp); font-weight:300; letter-spacing:-.02em;
+  font-size:clamp(1.7rem,3.4vw,2.8rem); line-height:1.1;
+}
+.no-js #actHero{height:auto}
+.no-js #actHero .stage{position:relative; height:100vh}
+.no-js .hero-endcap{opacity:1}
+
+/* ================= TICKER ================= */
+#ticker{border-top:1px solid var(--line2); border-bottom:1px solid var(--line2); overflow:hidden; position:relative; z-index:1; background:var(--bg)}
+#ticker .t-track{display:flex; width:max-content; animation:tick 46s linear infinite; padding:15px 0}
+#ticker:hover .t-track{animation-play-state:paused}
+#ticker .t-item{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--dim); padding:0 34px; display:flex; align-items:center; gap:34px; white-space:nowrap;
+}
+#ticker .t-item::after{content:""; width:5px; height:5px; background:var(--hot); opacity:.75; transform:rotate(45deg)}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ================= [01] COMPANY ================= */
+#company{padding:clamp(90px,12vw,170px) 0 clamp(80px,10vw,150px)}
+.co-grid{display:grid; grid-template-columns:1.25fr .9fr; gap:clamp(40px,6vw,110px); align-items:start}
+.co-monument{
+  font-family:var(--disp); font-weight:300; letter-spacing:-.025em; line-height:1.06;
+  font-size:clamp(2rem,4.2vw,3.7rem);
+}
+.co-monument b{font-weight:300; color:var(--hot)}
+.co-body p{color:var(--dim); margin-bottom:18px}
+.co-body p b{color:var(--ink); font-weight:500}
+.co-facts{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line2); border:1px solid var(--line2); margin-top:clamp(50px,7vw,90px)}
+.co-fact{background:var(--bg); padding:26px 22px}
+.co-fact .f-v{font-family:var(--disp); font-weight:300; font-size:clamp(1.9rem,3vw,2.7rem); letter-spacing:-.02em; line-height:1}
+.co-fact .f-v span{color:var(--hot); font-size:.55em; vertical-align:.35em; margin-left:2px}
+.co-fact .f-k{margin-top:12px}
+@media(max-width:900px){
+  .co-grid{grid-template-columns:1fr}
+  .co-facts{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ================= [02] CROSS-SECTION ACT ================= */
+#actSection{height:340vh; position:relative; background:var(--bg2)}
+@media(max-width:768px){ #actSection{height:260vh} }
+#actSection .stage{position:sticky; top:0; height:100vh; height:100svh; overflow:hidden; display:flex; align-items:center; justify-content:center}
+#actSection .xs-head{position:absolute; top:0; left:0; right:0; padding:86px var(--pad) 0; display:flex; justify-content:space-between; align-items:flex-start; z-index:5}
+#actSection .xs-head .tag{display:block; margin-bottom:12px}
+#actSection .xs-title{font-family:var(--disp); font-weight:300; font-size:clamp(1.5rem,2.6vw,2.2rem); letter-spacing:-.02em; line-height:1.1}
+#actSection .xs-counter{font-family:var(--mono); font-size:11px; letter-spacing:.16em; color:var(--dim); text-align:right}
+#actSection .xs-counter b{color:var(--hot); font-weight:500}
+#xsSvg{width:min(1120px,94vw); height:auto; position:relative; z-index:2}
+#xsSvg .xl-slab{stroke:var(--plat); stroke-width:1; fill:rgba(201,207,218,.03)}
+#xsSvg .xl-slab.hot{stroke:var(--hot); fill:var(--hot-dim)}
+#xsSvg .xl-side{fill:rgba(201,207,218,.05)}
+#xsSvg .xl-side.hot{fill:rgba(255,138,61,.2)}
+#xsSvg .xl-hatch{stroke:rgba(201,207,218,.25); stroke-width:.7}
+#xsSvg .xl-lead{stroke:var(--plat); stroke-width:1; fill:none; opacity:.8}
+#xsSvg .xl-node{fill:var(--hot)}
+#xsSvg text{font-family:var(--mono); letter-spacing:.12em}
+#xsSvg .xl-name{fill:var(--ink); font-size:12.5px; font-weight:500}
+#xsSvg .xl-spec{fill:var(--faint); font-size:10.5px}
+#xsSvg .xl-const{stroke:rgba(255,138,61,.35); stroke-width:.8; stroke-dasharray:3 5; fill:none}
+.xs-footnote{position:absolute; bottom:34px; left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; z-index:5; gap:20px}
+.no-js #actSection{height:auto}
+.no-js #actSection .stage{position:relative; height:auto; padding:120px 0}
+
+/* ================= [03] PRODUCT INDEX ================= */
+#products{padding:clamp(90px,12vw,170px) 0}
+.p-table{border-top:1px solid var(--line)}
+.p-row{
+  display:grid; grid-template-columns:70px 1.45fr .95fr 1fr 1.3fr 100px;
+  gap:18px; align-items:center; padding:26px 10px 26px 0;
+  border-bottom:1px solid var(--line2); position:relative;
+  transition:background .35s var(--ease2); text-align:left; width:100%;
+}
+.p-row::before{
+  content:""; position:absolute; left:-1px; top:0; bottom:0; width:2px;
+  background:var(--hot); transform:scaleY(0); transform-origin:50% 100%;
+  transition:transform .4s var(--ease);
+}
+.p-row:hover{background:rgba(201,207,218,.025)}
+.p-row:hover::before{transform:scaleY(1)}
+.p-no{font-family:var(--mono); font-size:10.5px; color:var(--faint); letter-spacing:.14em}
+.p-name{font-family:var(--disp); font-weight:400; font-size:clamp(1.05rem,1.6vw,1.35rem); letter-spacing:-.01em}
+.p-std,.p-range{font-family:var(--mono); font-size:11px; color:var(--dim); letter-spacing:.06em}
+.p-app{font-size:12.5px; color:var(--faint)}
+.p-rfq{
+  font-family:var(--mono); font-size:10px; letter-spacing:.16em; color:var(--faint);
+  justify-self:end; border:1px solid transparent; padding:7px 12px;
+  transition:color .3s var(--ease2), border-color .3s var(--ease2);
+}
+.p-row:hover .p-rfq{color:var(--hot); border-color:rgba(255,138,61,.4)}
+.p-legend{display:grid; grid-template-columns:70px 1.45fr .95fr 1fr 1.3fr 100px; gap:18px; padding:0 10px 14px 0}
+@media(max-width:900px){
+  .p-row{grid-template-columns:44px 1fr auto; grid-template-areas:"no name rfq" "no meta rfq"; row-gap:6px}
+  .p-no{grid-area:no} .p-name{grid-area:name}
+  .p-std{grid-area:meta} .p-range,.p-app{display:none}
+  .p-rfq{grid-area:rfq}
+  .p-legend{display:none}
+}
+
+/* ================= [04] PROCESSING ================= */
+#processing{padding:clamp(90px,12vw,170px) 0; background:var(--bg2); border-top:1px solid var(--line2); border-bottom:1px solid var(--line2)}
+.proc-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(30px,4vw,60px); align-items:stretch}
+.proc-card{border:1px solid var(--line2); background:var(--bg); padding:clamp(24px,3vw,40px); position:relative}
+.proc-card .tag{display:block; margin-bottom:22px}
+.proc-card h3{font-family:var(--disp); font-weight:300; font-size:clamp(1.4rem,2.2vw,1.9rem); letter-spacing:-.02em; margin-bottom:8px}
+.proc-card .pc-sub{color:var(--faint); font-size:13px; margin-bottom:28px}
+#slitSvg .sl-strip{fill:rgba(201,207,218,.06); stroke:var(--plat); stroke-width:1; transition:transform .7s var(--ease)}
+#slitSvg .sl-knife{fill:var(--hot)}
+#slitSvg text{font-family:var(--mono); fill:var(--faint); font-size:10px; letter-spacing:.1em}
+.sl-controls{display:flex; align-items:center; gap:20px; margin-top:26px; flex-wrap:wrap}
+.sl-readout{font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--dim)}
+.sl-readout b{color:var(--hot); font-weight:500; font-size:13px}
+input[type=range]{
+  -webkit-appearance:none; appearance:none; flex:1; min-width:150px; height:22px; background:transparent;
+}
+input[type=range]::-webkit-slider-runnable-track{height:1px; background:var(--line)}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none; width:11px; height:17px; margin-top:-8px;
+  background:var(--bg); border:1px solid var(--hot); position:relative;
+}
+input[type=range]::-moz-range-track{height:1px; background:var(--line)}
+input[type=range]::-moz-range-thumb{width:11px; height:17px; background:var(--bg); border:1px solid var(--hot); border-radius:0}
+#ctlSvg .ctl-dim{stroke:var(--plat); stroke-width:1}
+#ctlSvg .ctl-sheet{fill:rgba(201,207,218,.06); stroke:var(--plat); stroke-width:1}
+#ctlSvg text{font-family:var(--mono); fill:var(--faint); font-size:10px; letter-spacing:.1em}
+#ctlSvg .hotv{fill:var(--hot); font-size:12px; font-weight:500}
+.proc-notes{margin-top:26px; display:flex; flex-direction:column; gap:12px}
+.proc-note{display:flex; gap:14px; align-items:baseline; font-size:13px; color:var(--dim)}
+.proc-note i{font-family:var(--mono); font-style:normal; font-size:10px; color:var(--hot); letter-spacing:.1em; flex:0 0 auto}
+@media(max-width:900px){ .proc-grid{grid-template-columns:1fr} }
+
+/* ================= [05] MILLS ================= */
+#mills{padding:clamp(90px,12vw,170px) 0}
+.mill-list{border-top:1px solid var(--line)}
+.mill-row{
+  display:grid; grid-template-columns:70px 1fr auto; gap:18px; align-items:baseline;
+  padding:20px 10px 20px 0; border-bottom:1px solid var(--line2);
+  transition:background .35s var(--ease2);
+}
+.mill-row:hover{background:rgba(201,207,218,.025)}
+.mill-row .m-name{font-family:var(--disp); font-weight:300; font-size:clamp(1.4rem,2.6vw,2.1rem); letter-spacing:-.015em; color:var(--dim); transition:color .35s var(--ease2)}
+.mill-row:hover .m-name{color:var(--ink)}
+.mill-row .m-note{font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--faint); text-transform:uppercase}
+.mill-cap{margin-top:26px; max-width:560px; color:var(--faint); font-size:13px}
+
+/* ================= [06] NETWORK ================= */
+#network{padding:clamp(90px,12vw,170px) 0; background:var(--bg2); border-top:1px solid var(--line2); border-bottom:1px solid var(--line2)}
+.net-grid{display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(40px,6vw,100px); align-items:center}
+.net-copy p{color:var(--dim); margin-bottom:18px}
+.net-copy p b{color:var(--ink); font-weight:500}
+.net-points{margin-top:30px; display:flex; flex-direction:column; gap:0; border-top:1px solid var(--line2)}
+.net-point{display:flex; justify-content:space-between; gap:16px; padding:14px 0; border-bottom:1px solid var(--line2); font-size:13px; color:var(--dim)}
+.net-point .tag{padding-top:2px}
+#mapSvg{width:100%; height:auto}
+#mapSvg .map-outline{fill:none; stroke:rgba(201,207,218,.28); stroke-width:1; stroke-dasharray:3 4}
+#mapSvg .map-link{stroke:rgba(201,207,218,.35); stroke-width:.8; fill:none}
+#mapSvg .map-node{fill:var(--plat)}
+#mapSvg .map-node.hub{fill:var(--hot)}
+#mapSvg .map-pulse{fill:none; stroke:var(--hot); stroke-width:1; opacity:0}
+#mapSvg text{font-family:var(--mono); fill:var(--faint); font-size:9.5px; letter-spacing:.14em}
+@media(max-width:900px){ .net-grid{grid-template-columns:1fr} }
+
+/* ================= [07] COMMITMENTS ================= */
+#commitments{padding:clamp(90px,12vw,170px) 0}
+.cert{border:1px solid var(--line); position:relative; background:var(--bg2)}
+.cert::before,.cert::after{
+  content:""; position:absolute; width:10px; height:10px; border-color:var(--plat); border-style:solid; opacity:.5;
+}
+.cert::before{top:-1px; left:-1px; border-width:1px 0 0 1px}
+.cert::after{bottom:-1px; right:-1px; border-width:0 1px 1px 0}
+.cert-head{
+  display:flex; justify-content:space-between; align-items:center; gap:20px;
+  padding:22px clamp(22px,3.5vw,44px); border-bottom:1px solid var(--line2);
+}
+.cert-head .c-title{font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink)}
+.cert-rows{display:grid; grid-template-columns:1fr 1fr}
+.cert-row{
+  padding:clamp(26px,3.5vw,42px) clamp(22px,3.5vw,44px);
+  border-bottom:1px solid var(--line2); display:flex; gap:20px; align-items:flex-start;
+}
+.cert-row:nth-child(odd){border-right:1px solid var(--line2)}
+.cert-row .cr-no{font-family:var(--mono); font-size:10.5px; color:var(--hot); letter-spacing:.14em; padding-top:5px; flex:0 0 auto}
+.cert-row h3{font-family:var(--disp); font-weight:400; font-size:1.15rem; letter-spacing:-.01em; margin-bottom:8px}
+.cert-row p{font-size:13.5px; color:var(--dim)}
+.cert-foot{
+  padding:18px clamp(22px,3.5vw,44px); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+}
+@media(max-width:800px){
+  .cert-rows{grid-template-columns:1fr}
+  .cert-row:nth-child(odd){border-right:none}
+}
+
+/* ================= [08] RFQ ================= */
+#rfq{padding:clamp(90px,12vw,170px) 0 clamp(70px,9vw,120px); background:var(--bg2); border-top:1px solid var(--line2)}
+.rfq-grid{display:grid; grid-template-columns:.95fr 1.05fr; gap:clamp(40px,6vw,100px); align-items:start}
+.rfq-copy .co-monument{margin-bottom:26px}
+.rfq-contacts{display:flex; flex-direction:column; border-top:1px solid var(--line2); margin-top:34px}
+.rfq-contact{
+  display:flex; justify-content:space-between; align-items:baseline; gap:16px;
+  padding:16px 0; border-bottom:1px solid var(--line2);
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.06em; color:var(--ink);
+  transition:color .3s var(--ease2);
+}
+.rfq-contact:hover{color:var(--hot)}
+.rfq-contact .tag{padding-top:2px}
+.rfq-form{border:1px solid var(--line2); background:var(--bg); padding:clamp(24px,3.5vw,44px); position:relative}
+.rfq-form .f-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px 22px}
+.f-field{display:flex; flex-direction:column; gap:8px}
+.f-field.full{grid-column:1/-1}
+.f-field label{font-family:var(--mono); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--faint)}
+.f-field input,.f-field select,.f-field textarea{
+  background:transparent; border:none; border-bottom:1px solid var(--line);
+  color:var(--ink); font-family:var(--body); font-size:14.5px; padding:9px 2px;
+  transition:border-color .3s var(--ease2); border-radius:0;
+}
+.f-field select{appearance:none; -webkit-appearance:none; background-image:linear-gradient(45deg,transparent 49%,var(--faint) 50%),linear-gradient(-45deg,transparent 49%,var(--faint) 50%); background-position:calc(100% - 14px) 55%,calc(100% - 9px) 55%; background-size:5px 5px; background-repeat:no-repeat}
+.f-field select option{background:var(--bg2); color:var(--ink)}
+.f-field textarea{resize:vertical; min-height:72px}
+.f-field input:focus,.f-field select:focus,.f-field textarea:focus{outline:none; border-color:var(--hot)}
+.rfq-form .f-actions{display:flex; align-items:center; justify-content:space-between; gap:18px; margin-top:30px; flex-wrap:wrap}
+.rfq-form .f-note{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; color:var(--faint); text-transform:uppercase}
+.rfq-ok{
+  position:absolute; inset:0; background:var(--bg); display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:16px; text-align:center; padding:30px;
+  opacity:0; pointer-events:none; transition:opacity .5s var(--ease2); z-index:3;
+}
+.rfq-ok.show{opacity:1; pointer-events:auto}
+.rfq-ok .ok-line{font-family:var(--disp); font-weight:300; font-size:1.6rem; letter-spacing:-.02em}
+@media(max-width:960px){
+  .rfq-grid{grid-template-columns:1fr}
+  .rfq-form .f-grid{grid-template-columns:1fr}
+}
+
+/* ================= FOOTER ================= */
+footer{position:relative; overflow:hidden; padding:clamp(60px,8vw,100px) 0 40px; border-top:1px solid var(--line2)}
+.ft-mark{
+  position:absolute; left:50%; bottom:-.18em; transform:translateX(-50%);
+  font-family:var(--disp); font-weight:500; font-size:clamp(9rem,26vw,24rem); line-height:1;
+  color:transparent; -webkit-text-stroke:1px rgba(201,207,218,.09); letter-spacing:-.02em;
+  pointer-events:none; user-select:none; white-space:nowrap;
+}
+.ft-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:clamp(30px,5vw,80px); position:relative; z-index:1; margin-bottom:clamp(60px,10vw,140px)}
+.ft-col .tag{display:block; margin-bottom:20px}
+.ft-col p{color:var(--faint); font-size:13px; max-width:340px}
+.ft-links{display:flex; flex-direction:column; gap:12px}
+.ft-links a{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); transition:color .3s var(--ease2)}
+.ft-links a:hover{color:var(--hot)}
+.ft-base{
+  position:relative; z-index:1; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  padding-top:22px; border-top:1px solid var(--line2);
+}
+@media(max-width:800px){ .ft-grid{grid-template-columns:1fr} }
+
+/* ================= REDUCED MOTION / NO-JS ================= */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important}
+  .rv{opacity:1; transform:none}
+  #ticker .t-track{animation:none}
+  .hero-scroll{display:none}
+}
+.no-js #curDot,.no-js #curRing{display:none}
+</style>
+</head>
+<body class="no-js">
+<script>document.body.classList.remove('no-js')</script>
+
+<div class="blueprint" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<div id="intro" aria-hidden="true">
+  <div class="in-box">
+    <div class="in-row">
+      <span class="tag in-status" id="inStatus">Calibrating supply line</span>
+      <span class="in-num" id="inNum">000</span>
+    </div>
+    <div class="in-bar"><i id="inBar"></i></div>
+    <div class="in-row" style="margin-top:14px;margin-bottom:0">
+      <span class="tag">N.R. Trading Co</span>
+      <span class="tag">EST 2005</span>
+    </div>
+  </div>
+</div>
+
+<div id="curDot" aria-hidden="true"></div>
+<div id="curRing" aria-hidden="true"></div>
+
+<header id="nav">
+  <div class="n-in">
+    <a class="n-logo" href="#top" aria-label="N.R. Trading Co — home">
+      <span class="n-mark">N.R.</span>
+      <span class="n-sub">TRADING CO</span>
+    </a>
+    <nav class="n-links" aria-label="Primary">
+      <a href="#company">Company</a>
+      <a href="#products">Products</a>
+      <a href="#processing">Processing</a>
+      <a href="#network">Network</a>
+      <a href="#commitments">Terms</a>
+    </nav>
+    <a class="n-cta" href="#rfq">Request a quote</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ACT — THE COIL ============ -->
+<section id="actHero" aria-label="N.R. Trading Co — flat steel, measured">
+  <div class="stage">
+    <canvas id="heroCanvas" aria-hidden="true"></canvas>
+
+    <div class="hero-copy" id="heroCopy">
+      <span class="tag">Iron &amp; steel · Pan India · <b>Since 2005</b></span>
+      <h1>
+        <span class="h-eyebrow">N.R. Trading Co.</span>
+        <span class="h-line">Certainty is</span>
+        <span class="h-line">a <b>material</b></span>
+        <span class="h-line">property.</span>
+      </h1>
+      <p>Flat steel from India's foremost mills — bought on direct allocation, processed to tolerance, delivered where the work is. HR · CR · GP · GL · PPGI · PPGL.</p>
+      <div class="h-ctas">
+        <a class="btn btn--hot" href="#rfq"><span class="b-tick"></span>Request a quote</a>
+        <a class="btn" href="#products"><span class="b-tick"></span>Product index</a>
+      </div>
+    </div>
+
+    <div class="hero-callout" id="hc1" aria-hidden="true">
+      <span class="hc-k">OUTSIDE DIA</span>
+      <span class="hc-v"><b>1520</b> MM</span>
+    </div>
+    <div class="hero-callout" id="hc2" aria-hidden="true">
+      <span class="hc-k">GAUGE</span>
+      <span class="hc-v"><b id="hv2">0.450</b> ±0.02</span>
+    </div>
+    <div class="hero-callout" id="hc3" aria-hidden="true">
+      <span class="hc-k">COATING</span>
+      <span class="hc-v"><b>Z275</b> GSM</span>
+    </div>
+
+    <div class="hero-endcap" id="heroEndcap">
+      <span class="tag">Decoiling — <b>Line 01</b></span>
+      <div class="e-line">From coil to component, without the uncertainty in between.</div>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true"><span>Scroll to decoil</span><i></i></div>
+  </div>
+</section>
+
+<!-- ============ TICKER ============ -->
+<div id="ticker" aria-hidden="true">
+  <div class="t-track">
+    <span class="t-item">HR — IS 2062</span>
+    <span class="t-item">CR — IS 513</span>
+    <span class="t-item">GP — IS 277</span>
+    <span class="t-item">GL — AZ70 · AZ150</span>
+    <span class="t-item">PPGI — RMP · SMP · PVDF</span>
+    <span class="t-item">Slitting from 25 mm</span>
+    <span class="t-item">Cut-to-length to 6,000 mm</span>
+    <span class="t-item">Original MTC, every shipment</span>
+    <span class="t-item">Firm quotes in one business day</span>
+    <span class="t-item">HR — IS 2062</span>
+    <span class="t-item">CR — IS 513</span>
+    <span class="t-item">GP — IS 277</span>
+    <span class="t-item">GL — AZ70 · AZ150</span>
+    <span class="t-item">PPGI — RMP · SMP · PVDF</span>
+    <span class="t-item">Slitting from 25 mm</span>
+    <span class="t-item">Cut-to-length to 6,000 mm</span>
+    <span class="t-item">Original MTC, every shipment</span>
+    <span class="t-item">Firm quotes in one business day</span>
+  </div>
+</div>
+
+<!-- ============ [01] COMPANY ============ -->
+<section id="company" class="station">
+  <div class="wrap">
+    <div class="st-head rv">
+      <div class="st-l">
+        <span class="tag">[01] — <b>The company</b></span>
+        <h2>Steel trading,<br><em>run like an instrument.</em></h2>
+      </div>
+      <div class="st-r">EST 2005 · PAN INDIA</div>
+    </div>
+    <div class="st-rule"><i></i></div>
+    <div class="co-grid">
+      <div class="co-monument rv">Eight product lines. Six mill relationships. One discipline: <b>the specification is the contract.</b></div>
+      <div class="co-body rv">
+        <p>N.R. Trading Co. has traded flat steel since 2005 — hot rolled, cold rolled, coated and colour-coated — supplying <b>fabricators, roofing manufacturers, OEMs and infrastructure projects</b> across India.</p>
+        <p>We buy on direct mill allocation, hold ready inventory, process to order and dispatch with documentation ahead of the vehicle. No interpretation, no rounding off. <b>If the drawing says 0.45, the coil says 0.45.</b></p>
+      </div>
+    </div>
+    <div class="co-facts rv">
+      <div class="co-fact"><div class="f-v">2005</div><div class="f-k tag">Established</div></div>
+      <div class="co-fact"><div class="f-v">08</div><div class="f-k tag">Product lines</div></div>
+      <div class="co-fact"><div class="f-v">06</div><div class="f-k tag">Partner mills</div></div>
+      <div class="co-fact"><div class="f-v">01<span>DAY</span></div><div class="f-k tag">To a firm quote</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ [02] CROSS-SECTION ACT ============ -->
+<section id="actSection" aria-label="Cross-section of a pre-painted galvanised coil">
+  <div class="stage">
+    <div class="xs-head">
+      <div>
+        <span class="tag">[02] — <b>The section</b></span>
+        <div class="xs-title">Every coated coil<br>is a system.</div>
+      </div>
+      <div class="xs-counter">LAYERS <b id="xsCount">07</b> / 07<br><span class="tag">PPGI · 0.50 × 1250</span></div>
+    </div>
+
+    <svg id="xsSvg" viewBox="0 0 1120 720" role="img" aria-label="Exploded diagram of the seven layers of pre-painted galvanised steel: guard film, top coat, primer, zinc coating, steel substrate, zinc coating, back coat">
+      <path class="xl-const" id="xsConst" d="M860 146 L250 267 L860 260 L250 380 L860 397 L250 542 L860 535"/>
+
+      <!-- L1 GUARD FILM (exploded y=205, th=10, collapse dy=132) -->
+      <g class="xs-g" data-dy="132">
+        <path class="xl-slab" d="M250 205 L400 141 L860 141 L710 205 Z"/>
+        <path class="xl-side" d="M710 205 L860 141 L860 151 L710 215 Z"/>
+        <path class="xl-slab" d="M250 205 L710 205 L710 215 L250 215 Z"/>
+        <polyline class="xl-lead" points="860,146 890,146"/>
+        <circle class="xl-node" cx="860" cy="146" r="3"/>
+        <text class="xl-name" x="896" y="144">GUARD FILM</text>
+        <text class="xl-spec" x="896" y="159">STRIPPABLE PE · 40–80 μ</text>
+      </g>
+
+      <!-- L2 TOP COAT (y=259, th=16, dy=88) — the hot layer -->
+      <g class="xs-g" data-dy="88">
+        <path class="xl-slab hot" d="M250 259 L400 195 L860 195 L710 259 Z"/>
+        <path class="xl-side hot" d="M710 259 L860 195 L860 211 L710 275 Z"/>
+        <path class="xl-slab hot" d="M250 259 L710 259 L710 275 L250 275 Z"/>
+        <polyline class="xl-lead" points="250,267 220,267"/>
+        <circle class="xl-node" cx="250" cy="267" r="3"/>
+        <text class="xl-name" x="214" y="265" text-anchor="end">TOP COAT</text>
+        <text class="xl-spec" x="214" y="280" text-anchor="end">RMP · SMP · PVDF / 15–20 μ</text>
+      </g>
+
+      <!-- L3 PRIMER (y=319, th=10, dy=44) -->
+      <g class="xs-g" data-dy="44">
+        <path class="xl-slab" d="M250 319 L400 255 L860 255 L710 319 Z"/>
+        <path class="xl-side" d="M710 319 L860 255 L860 265 L710 329 Z"/>
+        <path class="xl-slab" d="M250 319 L710 319 L710 329 L250 329 Z"/>
+        <polyline class="xl-lead" points="860,260 890,260"/>
+        <circle class="xl-node" cx="860" cy="260" r="3"/>
+        <text class="xl-name" x="896" y="258">PRIMER</text>
+        <text class="xl-spec" x="896" y="273">EPOXY · 5–7 μ</text>
+      </g>
+
+      <!-- L4 ZINC (y=373, th=14, dy=0) -->
+      <g class="xs-g" data-dy="0">
+        <path class="xl-slab" d="M250 373 L400 309 L860 309 L710 373 Z"/>
+        <path class="xl-side" d="M710 373 L860 309 L860 323 L710 387 Z"/>
+        <path class="xl-slab" d="M250 373 L710 373 L710 387 L250 387 Z"/>
+        <polyline class="xl-lead" points="250,380 220,380"/>
+        <circle class="xl-node" cx="250" cy="380" r="3"/>
+        <text class="xl-name" x="214" y="378" text-anchor="end">ZINC COATING</text>
+        <text class="xl-spec" x="214" y="393" text-anchor="end">HOT-DIP · 90–275 GSM</text>
+      </g>
+
+      <!-- L5 SUBSTRATE (y=431, th=60, dy=-44) -->
+      <g class="xs-g" data-dy="-44">
+        <path class="xl-slab" d="M250 431 L400 367 L860 367 L710 431 Z"/>
+        <path class="xl-side" d="M710 431 L860 367 L860 427 L710 491 Z"/>
+        <path class="xl-slab" d="M250 431 L710 431 L710 491 L250 491 Z"/>
+        <path class="xl-hatch" d="M270 491 L310 431 M326 491 L366 431 M382 491 L422 431 M438 491 L478 431 M494 491 L534 431 M550 491 L590 431 M606 491 L646 431 M662 491 L702 431"/>
+        <polyline class="xl-lead" points="860,397 890,397"/>
+        <circle class="xl-node" cx="860" cy="397" r="3"/>
+        <text class="xl-name" x="896" y="395">STEEL SUBSTRATE</text>
+        <text class="xl-spec" x="896" y="410">IS 513 CR · 0.25–1.20 MM</text>
+      </g>
+
+      <!-- L6 ZINC reverse (y=535, th=14, dy=-88) -->
+      <g class="xs-g" data-dy="-88">
+        <path class="xl-slab" d="M250 535 L400 471 L860 471 L710 535 Z"/>
+        <path class="xl-side" d="M710 535 L860 471 L860 485 L710 549 Z"/>
+        <path class="xl-slab" d="M250 535 L710 535 L710 549 L250 549 Z"/>
+        <polyline class="xl-lead" points="250,542 220,542"/>
+        <circle class="xl-node" cx="250" cy="542" r="3"/>
+        <text class="xl-name" x="214" y="540" text-anchor="end">ZINC COATING</text>
+        <text class="xl-spec" x="214" y="555" text-anchor="end">REVERSE SIDE</text>
+      </g>
+
+      <!-- L7 BACK COAT (y=593, th=12, dy=-132) -->
+      <g class="xs-g" data-dy="-132">
+        <path class="xl-slab" d="M250 593 L400 529 L860 529 L710 593 Z"/>
+        <path class="xl-side" d="M710 593 L860 529 L860 541 L710 605 Z"/>
+        <path class="xl-slab" d="M250 593 L710 593 L710 605 L250 605 Z"/>
+        <polyline class="xl-lead" points="860,535 890,535"/>
+        <circle class="xl-node" cx="860" cy="535" r="3"/>
+        <text class="xl-name" x="896" y="533">BACK COAT</text>
+        <text class="xl-spec" x="896" y="548">SERVICE COAT · 5–7 μ</text>
+      </g>
+    </svg>
+
+    <div class="xs-footnote">
+      <span class="tag">PPGI — pre-painted galvanised · section view, not to scale</span>
+      <span class="tag">Every layer certified on the original MTC</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ [03] PRODUCT INDEX ============ -->
+<section id="products" class="station">
+  <div class="wrap">
+    <div class="st-head rv">
+      <div class="st-l">
+        <span class="tag">[03] — <b>Product index</b></span>
+        <h2>Eight lines,<br><em>held to standard.</em></h2>
+      </div>
+      <div class="st-r">DIRECT ALLOCATION + READY STOCK</div>
+    </div>
+    <div class="st-rule"><i></i></div>
+
+    <div class="p-legend" aria-hidden="true">
+      <span class="tag">No</span><span class="tag">Product</span><span class="tag">Standard</span><span class="tag">Range</span><span class="tag">Typical use</span><span></span>
+    </div>
+    <div class="p-table rv">
+      <button class="p-row js-quote" data-product="HR Coils" type="button">
+        <span class="p-no">P—01</span><span class="p-name">HR Coils</span>
+        <span class="p-std">IS 2062</span><span class="p-range">1.6 – 25.0 MM</span>
+        <span class="p-app">Structural fabrication, general engineering</span><span class="p-rfq">+ RFQ</span>
+      </button>
+      <button class="p-row js-quote" data-product="CR Coils" type="button">
+        <span class="p-no">P—02</span><span class="p-name">CR Coils</span>
+        <span class="p-std">IS 513</span><span class="p-range">0.30 – 3.00 MM</span>
+        <span class="p-app">Panels, appliances, automotive</span><span class="p-rfq">+ RFQ</span>
+      </button>
+      <button class="p-row js-quote" data-product="GP Sheets &amp; Coils" type="button">
+        <span class="p-no">P—03</span><span class="p-name">GP Sheets &amp; Coils</span>
+        <span class="p-std">IS 277 · Z90–Z275</span><span class="p-range">0.18 – 3.00 MM</span>
+        <span class="p-app">Roofing, ducting, cladding</span><span class="p-rfq">+ RFQ</span>
+      </button>
+      <button class="p-row js-quote" data-product="GL Sheets &amp; Coils" type="button">
+        <span class="p-no">P—04</span><span class="p-name">GL Sheets &amp; Coils</span>
+        <span class="p-std">AZ70 – AZ150</span><span class="p-range">0.25 – 1.60 MM</span>
+        <span class="p-app">Roofing, PEB systems</span><span class="p-rfq">+ RFQ</span>
+      </button>
+      <button class="p-row js-quote" data-product="PPGI" type="button">
+        <span class="p-no">P—05</span><span class="p-name">PPGI</span>
+        <span class="p-std">RMP · SMP · PVDF</span><span class="p-range">0.25 – 1.20 MM</span>
+        <span class="p-app">Colour roofing &amp; cladding</span><span class="p-rfq">+ RFQ</span>
+      </button>
+      <button class="p-row js-quote" data-product="PPGL" type="button">
+        <span class="p-no">P—06</span><span class="p-name">PPGL</span>
+        <span class="p-std">Coated galvalume</span><span class="p-range">0.25 – 1.20 MM</span>
+        <span class="p-app">Premium roofing, façades</span><span class="p-rfq">+ RFQ</span>
+      </button>
+      <button class="p-row js-quote" data-product="Colour Coated Steel" type="button">
+        <span class="p-no">P—07</span><span class="p-name">Colour Coated Steel</span>
+        <span class="p-std">Custom RAL shades</span><span class="p-range">Coil · sheet · profile</span>
+        <span class="p-app">OEM &amp; architectural</span><span class="p-rfq">+ RFQ</span>
+      </button>
+      <button class="p-row js-quote" data-product="Processed Sheets &amp; Coils" type="button">
+        <span class="p-no">P—08</span><span class="p-name">Processed Sheets &amp; Coils</span>
+        <span class="p-std">CTL · Slitting</span><span class="p-range">To drawing</span>
+        <span class="p-app">Cut to your specification</span><span class="p-rfq">+ RFQ</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ [04] PROCESSING ============ -->
+<section id="processing" class="station">
+  <div class="wrap">
+    <div class="st-head rv">
+      <div class="st-l">
+        <span class="tag">[04] — <b>Processing</b></span>
+        <h2>Cut to the drawing,<br><em>not near it.</em></h2>
+      </div>
+      <div class="st-r">TOLERANCE-CONTROLLED</div>
+    </div>
+    <div class="st-rule"><i></i></div>
+
+    <div class="proc-grid">
+      <div class="proc-card rv">
+        <span class="tag">SL — <b>Slitting line</b></span>
+        <h3>Master coil into strips</h3>
+        <p class="pc-sub">1,250 mm master slit into parallel strips — minimum width 25 mm. Drag the knives.</p>
+        <svg id="slitSvg" viewBox="0 0 520 250" role="img" aria-label="Interactive slitting diagram: a 1250 millimetre master coil divided into equal strips"></svg>
+        <div class="sl-controls">
+          <span class="tag">STRIPS</span>
+          <input type="range" id="slN" min="2" max="8" step="1" value="5" aria-label="Number of slit strips">
+          <span class="sl-readout" id="slOut">1250 ÷ 5 = <b>250.0 MM</b></span>
+        </div>
+        <div class="proc-notes">
+          <div class="proc-note"><i>[A]</i>Kerf and edge trim compensated in the cut plan</div>
+          <div class="proc-note"><i>[B]</i>Strips re-wound to ID 508 / 610 mm</div>
+        </div>
+      </div>
+
+      <div class="proc-card rv">
+        <span class="tag">CTL — <b>Cut-to-length</b></span>
+        <h3>Coil into flat sheets</h3>
+        <p class="pc-sub">Sheets from 500 to 6,000 mm, camber and squareness checked before strapping.</p>
+        <svg id="ctlSvg" viewBox="0 0 520 250" role="img" aria-label="Cut-to-length diagram: sheets cut between 500 and 6000 millimetres">
+          <path class="ctl-sheet" d="M60 70 L360 70 L460 120 L160 120 Z"/>
+          <path class="ctl-sheet" d="M60 100 L360 100 L460 150 L160 150 Z" opacity=".6"/>
+          <path class="ctl-sheet" d="M60 130 L360 130 L460 180 L160 180 Z" opacity=".35"/>
+          <line class="ctl-dim" x1="60" y1="205" x2="460" y2="205"/>
+          <line class="ctl-dim" x1="60" y1="198" x2="60" y2="212"/>
+          <line class="ctl-dim" x1="460" y1="198" x2="460" y2="212"/>
+          <text x="60" y="232">500 MM</text>
+          <text class="hotv" x="260" y="232" text-anchor="middle">— 6,000 MM —</text>
+          <text x="460" y="232" text-anchor="end">MAX</text>
+          <text x="60" y="52">FLYING SHEAR · STACKED · TAGGED</text>
+        </svg>
+        <div class="proc-notes">
+          <div class="proc-note"><i>[C]</i>Length, camber and squareness verified per lift</div>
+          <div class="proc-note"><i>[D]</i>Stacked, strapped and tagged to your works order</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ [05] MILLS ============ -->
+<section id="mills" class="station">
+  <div class="wrap">
+    <div class="st-head rv">
+      <div class="st-l">
+        <span class="tag">[05] — <b>Mill allocation</b></span>
+        <h2>Bought at the source,<br><em>on allocation.</em></h2>
+      </div>
+      <div class="st-r">PRIMARY PRODUCERS ONLY</div>
+    </div>
+    <div class="st-rule"><i></i></div>
+
+    <div class="mill-list rv">
+      <div class="mill-row"><span class="p-no">M—01</span><span class="m-name">Tata Steel</span><span class="m-note">HR · CR · GP</span></div>
+      <div class="mill-row"><span class="p-no">M—02</span><span class="m-name">JSW Steel</span><span class="m-note">Coated · Colour</span></div>
+      <div class="mill-row"><span class="p-no">M—03</span><span class="m-name">SAIL</span><span class="m-note">HR · Structural</span></div>
+      <div class="mill-row"><span class="p-no">M—04</span><span class="m-name">Jindal Steel</span><span class="m-note">HR · Plate</span></div>
+      <div class="mill-row"><span class="p-no">M—05</span><span class="m-name">AM/NS India</span><span class="m-note">GL · PPGL</span></div>
+      <div class="mill-row"><span class="p-no">M—06</span><span class="m-name">POSCO</span><span class="m-note">CR · Precision</span></div>
+    </div>
+    <p class="mill-cap rv">Allocation buying means our position is priced off the mill list, not the secondary market — and every coil arrives with its original mill test certificate.</p>
+  </div>
+</section>
+
+<!-- ============ [06] NETWORK ============ -->
+<section id="network" class="station">
+  <div class="wrap">
+    <div class="st-head rv">
+      <div class="st-l">
+        <span class="tag">[06] — <b>Dispatch network</b></span>
+        <h2>Pan-India,<br><em>on schedule.</em></h2>
+      </div>
+      <div class="st-r">JIT DELIVERY PROGRAMMES</div>
+    </div>
+    <div class="st-rule"><i></i></div>
+
+    <div class="net-grid">
+      <div class="net-copy rv">
+        <p>Dispatch is planned against <b>your production schedule</b>, not ours. Metro hubs and industrial belts are covered lane by lane, and transit documentation is issued before the vehicle reaches your gate.</p>
+        <div class="net-points">
+          <div class="net-point"><span class="tag">[DOCS]</span><span>Invoice, e-way bill, LR and MTC — ahead of arrival</span></div>
+          <div class="net-point"><span class="tag">[JIT]</span><span>Scheduled deliveries against rate contracts</span></div>
+          <div class="net-point"><span class="tag">[LOADS]</span><span>Full truck, part load, lengths to 6,000 mm</span></div>
+        </div>
+      </div>
+      <div class="rv">
+        <svg id="mapSvg" viewBox="0 0 560 620" role="img" aria-label="Stylised map of India showing dispatch corridors between metro and industrial hubs">
+          <path class="map-outline" d="M116 10 L183 40 L232 70 L222 100 L261 136 L309 162 L386 196 L415 184 L463 194 L512 156 L545 162 L558 184 L518 210 L469 250 L471 284 L444 276 L409 302 L367 310 L332 344 L290 384 L251 424 L236 464 L238 484 L224 520 L183 578 L158 544 L133 488 L108 428 L95 362 L91 318 L83 294 L54 322 L23 302 L10 276 L21 254 L56 254 L37 220 L60 182 L104 142 L126 100 L114 48 Z"/>
+          <g id="mapLinks">
+            <line class="map-link" x1="178" y1="168" x2="152" y2="122"/>
+            <line class="map-link" x1="178" y1="168" x2="151" y2="202"/>
+            <line class="map-link" x1="151" y1="202" x2="89" y2="280"/>
+            <line class="map-link" x1="89" y1="280" x2="94" y2="358"/>
+            <line class="map-link" x1="94" y1="358" x2="113" y2="370"/>
+            <line class="map-link" x1="113" y1="370" x2="203" y2="392"/>
+            <line class="map-link" x1="203" y1="392" x2="185" y2="480"/>
+            <line class="map-link" x1="185" y1="480" x2="237" y2="478"/>
+            <line class="map-link" x1="237" y1="478" x2="173" y2="520"/>
+            <line class="map-link" x1="89" y1="280" x2="152" y2="286"/>
+            <line class="map-link" x1="152" y1="286" x2="214" y2="317"/>
+            <line class="map-link" x1="214" y1="317" x2="263" y2="315"/>
+            <line class="map-link" x1="263" y1="315" x2="393" y2="289"/>
+            <line class="map-link" x1="203" y1="392" x2="214" y2="317"/>
+          </g>
+          <circle class="map-pulse" cx="178" cy="168" r="12"/>
+          <circle class="map-node hub" cx="178" cy="168" r="3.5"/>
+          <circle class="map-node" cx="152" cy="122" r="2.5"/>
+          <circle class="map-node" cx="151" cy="202" r="2.5"/>
+          <circle class="map-node" cx="89" cy="280" r="2.5"/>
+          <circle class="map-node" cx="94" cy="358" r="2.5"/>
+          <circle class="map-node" cx="113" cy="370" r="2.5"/>
+          <circle class="map-node" cx="203" cy="392" r="2.5"/>
+          <circle class="map-node" cx="185" cy="480" r="2.5"/>
+          <circle class="map-node" cx="237" cy="478" r="2.5"/>
+          <circle class="map-node" cx="173" cy="520" r="2.5"/>
+          <circle class="map-node" cx="152" cy="286" r="2.5"/>
+          <circle class="map-node" cx="214" cy="317" r="2.5"/>
+          <circle class="map-node" cx="263" cy="315" r="2.5"/>
+          <circle class="map-node" cx="393" cy="289" r="2.5"/>
+          <text x="190" y="164">DELHI NCR</text>
+          <text x="104" y="352" text-anchor="end">MUMBAI</text>
+          <text x="97" y="272" text-anchor="end">AHMEDABAD</text>
+          <text x="215" y="396">HYDERABAD</text>
+          <text x="175" y="496" text-anchor="end">BENGALURU</text>
+          <text x="249" y="482">CHENNAI</text>
+          <text x="403" y="285">KOLKATA</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ [07] COMMITMENTS ============ -->
+<section id="commitments" class="station">
+  <div class="wrap">
+    <div class="st-head rv">
+      <div class="st-l">
+        <span class="tag">[07] — <b>Commitments</b></span>
+        <h2>In writing,<br><em>every time.</em></h2>
+      </div>
+      <div class="st-r">STANDARD TERMS OF SUPPLY</div>
+    </div>
+    <div class="st-rule"><i></i></div>
+
+    <div class="cert rv">
+      <div class="cert-head">
+        <span class="c-title">Terms of supply — N.R. Trading Co.</span>
+        <span class="tag">Since <b>2005</b></span>
+      </div>
+      <div class="cert-rows">
+        <div class="cert-row">
+          <span class="cr-no">C—01</span>
+          <div><h3>A firm quote within one business day</h3>
+          <p>Priced off the current mill list and our stock position — a number you can put in your costing, not an estimate.</p></div>
+        </div>
+        <div class="cert-row">
+          <span class="cr-no">C—02</span>
+          <div><h3>Original mill test certificates</h3>
+          <p>Every shipment carries the originating mill's MTC. Chemistry and mechanicals trace to the heat, not to a photocopy.</p></div>
+        </div>
+        <div class="cert-row">
+          <span class="cr-no">C—03</span>
+          <div><h3>Documentation before the vehicle</h3>
+          <p>Invoice, e-way bill, LR and certificates reach you before the truck does. Your gate never waits on paperwork.</p></div>
+        </div>
+        <div class="cert-row">
+          <span class="cr-no">C—04</span>
+          <div><h3>Tolerance-controlled processing</h3>
+          <p>Slitting and cut-to-length held to agreed tolerance — kerf and camber compensated, checked before strapping.</p></div>
+        </div>
+      </div>
+      <div class="cert-foot">
+        <span class="tag">Mon – Sat · 09:30 – 19:00 IST</span>
+        <span class="tag">+91 98711 50620</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ [08] RFQ ============ -->
+<section id="rfq" class="station">
+  <div class="wrap">
+    <div class="st-head rv">
+      <div class="st-l">
+        <span class="tag">[08] — <b>Request for quote</b></span>
+        <h2>Send the spec.<br><em>Get a number.</em></h2>
+      </div>
+      <div class="st-r">FIRM QUOTE IN ONE BUSINESS DAY</div>
+    </div>
+    <div class="st-rule"><i></i></div>
+
+    <div class="rfq-grid">
+      <div class="rfq-copy rv">
+        <div class="co-monument">Tell us grade, gauge, width and quantity — a firm number comes back <b>within one business day.</b></div>
+        <div class="rfq-contacts">
+          <a class="rfq-contact" href="tel:+919871150620"><span class="tag">[CALL]</span><span>+91 98711 50620</span></a>
+          <a class="rfq-contact" href="https://wa.me/919871150620" target="_blank" rel="noopener"><span class="tag">[WHATSAPP]</span><span>+91 98711 50620</span></a>
+          <a class="rfq-contact" href="mailto:sachingrg441@gmail.com"><span class="tag">[EMAIL]</span><span>sachingrg441@gmail.com</span></a>
+          <span class="rfq-contact"><span class="tag">[HOURS]</span><span>Mon – Sat · 09:30 – 19:00 IST</span></span>
+        </div>
+      </div>
+
+      <form class="rfq-form rv" id="rfqForm" novalidate>
+        <div class="f-grid">
+          <div class="f-field">
+            <label for="fName">Name *</label>
+            <input id="fName" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="f-field">
+            <label for="fCompany">Company</label>
+            <input id="fCompany" name="company" type="text" autocomplete="organization">
+          </div>
+          <div class="f-field">
+            <label for="fPhone">Phone *</label>
+            <input id="fPhone" name="phone" type="tel" autocomplete="tel" required>
+          </div>
+          <div class="f-field">
+            <label for="fProduct">Product</label>
+            <select id="fProduct" name="product">
+              <option>HR Coils</option>
+              <option>CR Coils</option>
+              <option>GP Sheets &amp; Coils</option>
+              <option>GL Sheets &amp; Coils</option>
+              <option>PPGI</option>
+              <option>PPGL</option>
+              <option>Colour Coated Steel</option>
+              <option>Processed Sheets &amp; Coils</option>
+              <option>Multiple / other</option>
+            </select>
+          </div>
+          <div class="f-field">
+            <label for="fSize">Size — thickness × width</label>
+            <input id="fSize" name="size" type="text" placeholder="0.50 × 1250 mm">
+          </div>
+          <div class="f-field">
+            <label for="fQty">Quantity (MT)</label>
+            <input id="fQty" name="qty" type="text" inputmode="decimal" placeholder="25">
+          </div>
+          <div class="f-field full">
+            <label for="fMsg">Notes — grade, coating, delivery point</label>
+            <textarea id="fMsg" name="msg" placeholder="IS 513 CR2, Z120, delivery Faridabad…"></textarea>
+          </div>
+        </div>
+        <div class="f-actions">
+          <button class="btn btn--hot" type="submit"><span class="b-tick"></span>Send via WhatsApp</button>
+          <span class="f-note">Opens WhatsApp — nothing is stored</span>
+        </div>
+        <div class="rfq-ok" id="rfqOk" aria-live="polite">
+          <span class="tag">RFQ — <b>drafted</b></span>
+          <div class="ok-line">Your enquiry is on its way.</div>
+          <p style="color:var(--dim);font-size:13.5px;max-width:340px">WhatsApp should have opened with your RFQ pre-filled. We reply within one business day.</p>
+          <button class="btn" type="button" id="rfqReset"><span class="b-tick"></span>New enquiry</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="station">
+  <div class="ft-mark" aria-hidden="true">N.R.</div>
+  <div class="wrap">
+    <div class="ft-grid">
+      <div class="ft-col">
+        <span class="tag">N.R. Trading Co</span>
+        <p>Iron &amp; steel trading, pan India. Flat steel sourced on mill allocation, processed to tolerance, delivered on schedule. Since 2005.</p>
+      </div>
+      <div class="ft-col">
+        <span class="tag">Index</span>
+        <div class="ft-links">
+          <a href="#company">[01] Company</a>
+          <a href="#actSection">[02] The section</a>
+          <a href="#products">[03] Products</a>
+          <a href="#processing">[04] Processing</a>
+          <a href="#network">[06] Network</a>
+          <a href="#rfq">[08] RFQ</a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <span class="tag">Contact</span>
+        <div class="ft-links">
+          <a href="tel:+919871150620">+91 98711 50620</a>
+          <a href="https://wa.me/919871150620" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="mailto:sachingrg441@gmail.com">sachingrg441@gmail.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="ft-base">
+      <span class="tag">© 2026 N.R. Trading Co. All rights reserved</span>
+      <span class="tag">HR · CR · GP · GL · PPGI · PPGL</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+#mapSvg .map-pulse{transform-box:fill-box; transform-origin:center; animation:mpulse 3.2s cubic-bezier(.4,0,.2,1) infinite}
+@keyframes mpulse{0%{transform:scale(.35); opacity:.8}70%{transform:scale(1.5); opacity:0}100%{transform:scale(1.5); opacity:0}}
+@media(prefers-reduced-motion:reduce){#mapSvg .map-pulse{animation:none; opacity:0}}
+</style>
+<style>
+@media(max-width:768px){.hero-callout{display:none}}
+main section, #actSection{scroll-margin-top:70px}
+#xsSvg{aspect-ratio:1120/720; max-height:76vh; width:auto; max-width:94vw}
+.map-link{transition:stroke-dashoffset 1.15s cubic-bezier(.22,1,.36,1)}
+</style>
+<script>
+(function(){
+"use strict";
+var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var fine = matchMedia('(pointer:fine)').matches;
+var clamp = function(v,a,b){ return v<a?a:(v>b?b:v); };
+var lerp = function(a,b,t){ return a+(b-a)*t; };
+var easeOut = function(c){ return 1-Math.pow(1-c,3); };
+var $ = function(s,c){ return (c||document).querySelector(s); };
+var $$ = function(s,c){ return Array.prototype.slice.call((c||document).querySelectorAll(s)); };
+
+/* ---------- intro / calibration ---------- */
+(function(){
+  var intro = $('#intro'); if(!intro) return;
+  var num = $('#inNum'), bar = $('#inBar'), status = $('#inStatus');
+  var finished = false;
+  function finish(){
+    if(finished) return; finished = true;
+    intro.classList.add('done');
+    setTimeout(function(){ intro.style.display = 'none'; }, 950);
+  }
+  if(reduce){ requestAnimationFrame(function(){ intro.style.display='none'; finished = true; }); return; }
+  var t0 = null, DUR = 1500;
+  function step(ts){
+    if(finished) return;
+    if(t0===null) t0 = ts;
+    var p = clamp((ts-t0)/DUR, 0, 1);
+    var e = 1-Math.pow(1-p,4);
+    var n = Math.round(e*100);
+    num.textContent = (n<10?'00':(n<100?'0':''))+n;
+    bar.style.transform = 'scaleX('+e+')';
+    if(p<1){ requestAnimationFrame(step); }
+    else{ status.textContent = 'Locked'; setTimeout(finish, 260); }
+  }
+  requestAnimationFrame(step);
+  intro.addEventListener('click', finish);
+})();
+
+/* ---------- cursor (fine pointers only) ---------- */
+var curX=-100, curY=-100, ringX=-100, ringY=-100;
+(function(){
+  if(!fine || reduce) return;
+  document.body.classList.add('cur-on');
+  var dot = $('#curDot');
+  addEventListener('pointermove', function(e){
+    curX = e.clientX; curY = e.clientY;
+    dot.style.transform = 'translate('+curX+'px,'+curY+'px)';
+  }, {passive:true});
+  document.addEventListener('pointerover', function(e){
+    var hit = e.target.closest('a,button,input,select,textarea,label,.p-row,.mill-row');
+    document.body.classList.toggle('cur-hi', !!hit);
+  });
+})();
+
+/* ---------- nav solid ---------- */
+var nav = $('#nav');
+function navCheck(){ nav.classList.toggle('solid', scrollY > 40); }
+addEventListener('scroll', navCheck, {passive:true}); navCheck();
+
+/* ---------- reveals ---------- */
+(function(){
+  var els = $$('.rv');
+  if(reduce){ els.forEach(function(el){ el.style.opacity=1; el.style.transform='none'; }); return; }
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      if(!en.isIntersecting) return;
+      var el = en.target;
+      el.style.transition = 'opacity .95s cubic-bezier(.22,1,.36,1), transform .95s cubic-bezier(.22,1,.36,1)';
+      el.style.opacity = 1; el.style.transform = 'none';
+      io.unobserve(el);
+    });
+  }, {threshold:.12, rootMargin:'-8% 0px'});
+  els.forEach(function(el){ io.observe(el); });
+})();
+
+/* ---------- HERO ACT — the coil ---------- */
+var hero = (function(){
+  var sec = $('#actHero'), stage = $('.stage', sec), cv = $('#heroCanvas');
+  var copy = $('#heroCopy'), endcap = $('#heroEndcap'), hint = $('.hero-scroll', sec);
+  var hc = [$('#hc1'), $('#hc2'), $('#hc3')];
+  var ctx = cv.getContext('2d');
+  var W=0, H=0, dpr=1, visible = true;
+  var PLAT = '201,207,218', HOT = '255,138,61';
+
+  function size(){
+    W = stage.clientWidth; H = stage.clientHeight;
+    dpr = Math.min(devicePixelRatio||1, 2);
+    cv.width = W*dpr; cv.height = H*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  size();
+
+  new IntersectionObserver(function(es){ visible = es[0].isIntersecting; }).observe(stage);
+
+  function draw(P, t){
+    ctx.clearRect(0,0,W,H);
+    var mob = W < 768;
+    var g = mob ? 0.55 : 1;
+    var p = easeOut(clamp(P/0.88, 0, 1));
+    var cx = lerp(mob ? W*0.5 : W*0.66, W*0.30, p);
+    var cy = H*0.52;
+    var R0 = Math.min(W,H)*0.30;
+    var eye = R0*0.30;
+    var R = Math.max(eye+10, R0*(1-0.46*p));
+    var rot = -p*9 - (reduce ? 0 : t*0.00012);
+
+    /* rings */
+    var i, rr, a;
+    for(i=0;i<8;i++){
+      rr = eye + (R-eye)*(i+1)/8;
+      a = (0.08 + 0.30*(i/7)) * g;
+      ctx.beginPath(); ctx.arc(cx,cy,rr,0,6.2832);
+      ctx.strokeStyle = 'rgba('+PLAT+','+a+')'; ctx.lineWidth = i===7?1.4:1; ctx.stroke();
+    }
+    /* spiral */
+    var TH = 8*6.2832, N=260, th, r, x, y;
+    ctx.beginPath();
+    for(i=0;i<=N;i++){
+      th = TH*i/N;
+      r = eye + (R-eye)*(i/N);
+      x = cx + r*Math.cos(th+rot); y = cy + r*Math.sin(th+rot);
+      i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle = 'rgba('+PLAT+','+(0.20*g)+')'; ctx.lineWidth = 1; ctx.stroke();
+    /* spokes */
+    for(i=0;i<3;i++){
+      th = rot + i*2.0944;
+      ctx.beginPath();
+      ctx.moveTo(cx+eye*Math.cos(th), cy+eye*Math.sin(th));
+      ctx.lineTo(cx+R*Math.cos(th), cy+R*Math.sin(th));
+      ctx.strokeStyle = 'rgba('+PLAT+','+(0.16*g)+')'; ctx.stroke();
+    }
+    /* hub */
+    ctx.beginPath(); ctx.arc(cx,cy,eye*0.45,0,6.2832);
+    ctx.strokeStyle = 'rgba('+PLAT+','+(0.5*g)+')'; ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx-eye*0.7,cy); ctx.lineTo(cx-eye*0.2,cy);
+    ctx.moveTo(cx+eye*0.2,cy); ctx.lineTo(cx+eye*0.7,cy);
+    ctx.moveTo(cx,cy-eye*0.7); ctx.lineTo(cx,cy-eye*0.2);
+    ctx.moveTo(cx,cy+eye*0.2); ctx.lineTo(cx,cy+eye*0.7);
+    ctx.strokeStyle = 'rgba('+PLAT+','+(0.35*g)+')'; ctx.stroke();
+
+    /* strip */
+    var sy = cy + R;
+    var L = p * (W - cx);
+    if(L > 3){
+      ctx.beginPath();
+      ctx.moveTo(cx, sy); ctx.lineTo(cx+L, sy);
+      ctx.moveTo(cx, sy-7); ctx.lineTo(cx+L, sy-7);
+      ctx.strokeStyle = 'rgba('+PLAT+','+(0.55*g)+')'; ctx.lineWidth = 1.2; ctx.stroke();
+      /* passage ticks */
+      ctx.beginPath();
+      for(x = cx+46; x < cx+L-16; x += 92){ ctx.moveTo(x, sy-7); ctx.lineTo(x, sy); }
+      ctx.strokeStyle = 'rgba('+PLAT+','+(0.22*g)+')'; ctx.lineWidth = 1; ctx.stroke();
+      /* shear at strip end */
+      if(L < W-cx-6){
+        ctx.beginPath(); ctx.moveTo(cx+L, sy-22); ctx.lineTo(cx+L, sy+15);
+        ctx.strokeStyle = 'rgba('+PLAT+','+(0.5*g)+')'; ctx.stroke();
+      }
+      /* dimension line under strip */
+      var da = clamp((p-0.5)*3, 0, 1)*0.55*g;
+      if(da>0.01 && L>140){
+        ctx.beginPath();
+        ctx.moveTo(cx+36, sy+26); ctx.lineTo(cx+L-30, sy+26);
+        ctx.moveTo(cx+36, sy+20); ctx.lineTo(cx+36, sy+32);
+        ctx.moveTo(cx+L-30, sy+20); ctx.lineTo(cx+L-30, sy+32);
+        ctx.strokeStyle = 'rgba('+PLAT+','+da+')'; ctx.stroke();
+      }
+      /* hot working point — the only colour */
+      var grad = ctx.createRadialGradient(cx, sy-3, 0, cx, sy-3, 42);
+      grad.addColorStop(0, 'rgba('+HOT+',.30)');
+      grad.addColorStop(1, 'rgba('+HOT+',0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(cx-44, sy-47, 88, 88);
+      ctx.beginPath();
+      ctx.moveTo(cx, sy); ctx.lineTo(cx+Math.min(64,L), sy);
+      ctx.moveTo(cx, sy-7); ctx.lineTo(cx+Math.min(64,L), sy-7);
+      ctx.strokeStyle = 'rgba('+HOT+',.85)'; ctx.lineWidth = 1.3; ctx.stroke();
+    }
+
+    /* scan sweep */
+    if(!reduce){
+      var sx = ((t*0.05) % (W+500)) - 250;
+      var band = ctx.createLinearGradient(sx-130,0,sx+130,0);
+      band.addColorStop(0,'rgba(255,255,255,0)');
+      band.addColorStop(0.5,'rgba(255,255,255,0.035)');
+      band.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.fillStyle = band; ctx.fillRect(sx-130,0,260,H);
+    }
+
+    /* callout anchors + nodes */
+    if(!mob){
+      var an = [
+        {el:hc[0], x:cx+R*0.72, y:cy-R*0.92, o:clamp(1-(P-0.45)*4,0,1)},
+        {el:hc[1], x:(L>120 ? cx+Math.min(L*0.58, W-cx-240) : 0), y:sy+16, o:(L>120 ? clamp((p-0.52)*4,0,1) : 0)},
+        {el:hc[2], x:cx+R*0.55, y:cy+R*0.82, o:clamp(1-P*3.4,0,1)}
+      ];
+      an.forEach(function(c){
+        var o = c.o * (reduce?0.95:1);
+        c.el.style.opacity = o;
+        if(o<=0.01) return;
+        c.el.style.left = clamp(c.x,12,W-190)+'px';
+        c.el.style.top = clamp(c.y,76,H-70)+'px';
+        ctx.beginPath(); ctx.arc(clamp(c.x,12,W-190)-8, clamp(c.y,76,H-70)+12, 2.2, 0, 6.2832);
+        ctx.fillStyle = 'rgba('+HOT+','+(o*0.9)+')'; ctx.fill();
+      });
+    }
+
+    /* copy + endcap + hint */
+    var co = clamp(1-P*2.6, 0, 1);
+    copy.style.opacity = co;
+    copy.style.transform = 'translateY(calc(-50% - '+(P*46)+'px))';
+    copy.style.pointerEvents = co < 0.15 ? 'none' : '';
+    var eo = clamp((P-0.60)/0.16, 0, 1);
+    endcap.style.opacity = eo;
+    endcap.style.transform = 'translateY('+((1-eo)*22)+'px)';
+    if(hint) hint.style.opacity = clamp(1-P*5, 0, 1);
+  }
+
+  return {sec:sec, size:size, draw:draw, isVisible:function(){return visible;}};
+})();
+
+/* ---------- SECTION ACT — the exploded stack ---------- */
+var xsect = (function(){
+  var sec = $('#actSection'); if(!sec) return null;
+  var stage = $('.stage', sec);
+  var groups = $$('.xs-g', sec);
+  var consts = $('#xsConst'), count = $('#xsCount');
+  var visible = true;
+  var labels = groups.map(function(gr){
+    return $$('.xl-lead,.xl-node,.xl-name,.xl-spec', gr);
+  });
+  /* start collapsed + unlabeled (markup default is exploded, for no-js) */
+  function prime(){
+    groups.forEach(function(gr){ gr.style.willChange = 'transform'; });
+    update(0);
+  }
+  new IntersectionObserver(function(es){ visible = es[0].isIntersecting; }).observe(stage);
+  function update(SP){
+    var pe = easeOut(clamp(SP/0.78, 0, 1));
+    var revealed = 0;
+    groups.forEach(function(gr, i){
+      var dy = parseFloat(gr.dataset.dy) * (1-pe);
+      gr.style.transform = 'translateY('+dy+'px)';
+      var rv = clamp((SP - (0.34 + i*0.078))/0.085, 0, 1);
+      if(rv > 0.5) revealed++;
+      labels[i].forEach(function(el){ el.style.opacity = rv; });
+    });
+    consts.style.opacity = clamp((SP-0.88)/0.1, 0, 1)*0.9;
+    count.textContent = (revealed<10?'0':'')+revealed;
+  }
+  return {sec:sec, prime:prime, update:update, isVisible:function(){return visible;}};
+})();
+
+/* ---------- master loop ---------- */
+(function(){
+  var heroP = 0, secP = 0;
+  function targets(){
+    var vh = innerHeight;
+    var r1 = hero.sec.getBoundingClientRect();
+    var t1 = clamp(-r1.top/(r1.height-vh), 0, 1);
+    var t2 = 0;
+    if(xsect){
+      var r2 = xsect.sec.getBoundingClientRect();
+      t2 = clamp(-r2.top/(r2.height-vh), 0, 1);
+    }
+    return [t1, t2];
+  }
+  if(reduce){
+    /* static frames, no loop */
+    var st = targets();
+    hero.draw(0.0, 0);
+    if(xsect){ xsect.prime(); xsect.update(1); }
+    addEventListener('resize', function(){ hero.size(); hero.draw(0.0, 0); });
+    addEventListener('scroll', function(){
+      var tg = targets();
+      hero.draw(tg[0], 0);
+      if(xsect) xsect.update(tg[1]);
+    }, {passive:true});
+    return;
+  }
+  if(xsect) xsect.prime();
+  var ring = $('#curRing'), rX=-100, rY=-100;
+  function loop(t){
+    if(!document.hidden){
+      var tg = targets();
+      heroP += (tg[0]-heroP)*0.09;
+      secP += (tg[1]-secP)*0.09;
+      if(hero.isVisible()) hero.draw(heroP, t);
+      if(xsect && xsect.isVisible()) xsect.update(secP);
+      if(fine && ring){
+        rX += (curX-rX)*0.18; rY += (curY-rY)*0.18;
+        ring.style.transform = 'translate('+rX+'px,'+rY+'px)';
+      }
+    }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+  addEventListener('resize', function(){ hero.size(); });
+})();
+
+/* ---------- ticking gauge value ---------- */
+(function(){
+  var el = $('#hv2'); if(!el || reduce) return;
+  var vals = ['0.450','0.448','0.451','0.449','0.450'];
+  var i = 0;
+  setInterval(function(){
+    if(!hero.isVisible() || document.hidden) return;
+    i = (i+1)%vals.length; el.textContent = vals[i];
+  }, 2200);
+})();
+
+/* ---------- slitting instrument ---------- */
+(function(){
+  var svg = $('#slitSvg'), slider = $('#slN'), out = $('#slOut');
+  if(!svg || !slider) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(name, attrs){
+    var n = document.createElementNS(NS, name);
+    for(var k in attrs) n.setAttribute(k, attrs[k]);
+    return n;
+  }
+  function build(n){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    var X=40, Wd=420, top=22, TH=168, gap = 26/(n-1);
+    var h = (TH - 26)/n;
+    for(var i=0;i<n;i++){
+      var y = top + i*(h+gap);
+      svg.appendChild(el('rect', {'class':'sl-strip', x:X, y:y.toFixed(1), width:Wd, height:h.toFixed(1)}));
+      if(i>0){
+        var yc = y - gap/2;
+        svg.appendChild(el('polygon', {'class':'sl-knife', points:(X+Wd+4)+','+(yc-4).toFixed(1)+' '+(X+Wd+4)+','+(yc+4).toFixed(1)+' '+(X+Wd+12)+','+yc.toFixed(1)}));
+      }
+    }
+    var cap = el('text', {x:X, y:238});
+    cap.textContent = 'MASTER 1250 MM · MIN SLIT 25 MM';
+    svg.appendChild(cap);
+    var wmm = (1250/n).toFixed(1);
+    out.innerHTML = '1250 ÷ '+n+' = <b>'+wmm+' MM</b>';
+  }
+  slider.addEventListener('input', function(){ build(+slider.value); });
+  build(+slider.value);
+})();
+
+/* ---------- map link draw-on ---------- */
+(function(){
+  var svg = $('#mapSvg'); if(!svg) return;
+  var links = $$('.map-link', svg);
+  if(reduce) return;
+  links.forEach(function(l){
+    var len = Math.hypot(l.x2.baseVal.value-l.x1.baseVal.value, l.y2.baseVal.value-l.y1.baseVal.value);
+    l.style.transition = 'none';
+    l.style.strokeDasharray = len;
+    l.style.strokeDashoffset = len;
+  });
+  var io = new IntersectionObserver(function(es){
+    if(!es[0].isIntersecting) return;
+    links.forEach(function(l, i){
+      setTimeout(function(){
+        l.style.transition = '';
+        l.style.strokeDashoffset = 0;
+      }, 120 + i*90);
+    });
+    io.disconnect();
+  }, {threshold:.3});
+  io.observe(svg);
+})();
+
+/* ---------- RFQ funnel ---------- */
+(function(){
+  var form = $('#rfqForm'), ok = $('#rfqOk'), sel = $('#fProduct');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!form.checkValidity()){ form.reportValidity(); return; }
+    var v = function(id){ return ($('#'+id)||{}).value || ''; };
+    var lines = ['RFQ — N.R. Trading Co.', ''];
+    lines.push('Name: '+v('fName'));
+    if(v('fCompany')) lines.push('Company: '+v('fCompany'));
+    lines.push('Phone: '+v('fPhone'));
+    lines.push('Product: '+v('fProduct'));
+    if(v('fSize')) lines.push('Size: '+v('fSize'));
+    if(v('fQty')) lines.push('Quantity: '+v('fQty')+' MT');
+    if(v('fMsg')) lines.push('Notes: '+v('fMsg'));
+    window.open('https://wa.me/919871150620?text='+encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+    ok.classList.add('show');
+  });
+  $('#rfqReset').addEventListener('click', function(){
+    ok.classList.remove('show'); form.reset();
+  });
+  /* product row preselect */
+  $$('.js-quote').forEach(function(row){
+    row.addEventListener('click', function(){
+      var name = row.dataset.product;
+      for(var i=0;i<sel.options.length;i++){
+        if(sel.options[i].text.replace(/\s+/g,' ').trim() === name){ sel.selectedIndex = i; break; }
+      }
+      $('#rfq').scrollIntoView({behavior: reduce?'auto':'smooth'});
+      setTimeout(function(){ try{ $('#fName').focus({preventScroll:true}); }catch(e){} }, reduce?0:700);
+    });
+  });
+})();
+})();
+</script>
+</body>
+</html>
